@@ -16,9 +16,63 @@ void Delay_us()
     asm("nop");   
     asm("nop");   
     asm("nop"); 
-
-  
 }
+void Delay_125us()
+{
+  asm("nop"); asm("nop"); asm("nop"); asm("nop");
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  
+  asm("nop"); asm("nop"); asm("nop"); asm("nop");
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  
+  asm("nop"); asm("nop"); asm("nop"); asm("nop");
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop");
+  
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop");
+  
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop");
+  
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
+
+}//176   
 void Delay_ms(unsigned int time)   
 {   
    unsigned int i;   
@@ -35,9 +89,9 @@ void main()
     while(1)
     {
       LED_ON;
-      Delay_ms(500);
+      Delay_125us();
       LED_OFF;
-      Delay_ms(500);
+      Delay_125us();
       
     }
 }
