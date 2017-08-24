@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\common\bin\cspybat" -f "C:\Users\gx\Desktop\ultrasonic\Project\settings\DR200.Debug.general.xcl" --backend -f "C:\Users\gx\Desktop\ultrasonic\Project\settings\DR200.Debug.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3_2\common\bin\cspybat" -f "E:\Project\Practise\ul_stm8\Project\settings\DR200.Debug.general.xcl" --backend -f "E:\Project\Practise\ul_stm8\Project\settings\DR200.Debug.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\common\bin\cspybat" -f "C:\Users\gx\Desktop\ultrasonic\Project\settings\DR200.Debug.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\gx\Desktop\ultrasonic\Project\settings\DR200.Debug.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3_2\common\bin\cspybat" -f "E:\Project\Practise\ul_stm8\Project\settings\DR200.Debug.general.xcl" "--debug_file=%~1" --backend -f "E:\Project\Practise\ul_stm8\Project\settings\DR200.Debug.driver.xcl" 
 
 @echo off 
 :end

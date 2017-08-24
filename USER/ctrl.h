@@ -1,112 +1,33 @@
 #ifndef _CTRL_H
 #define _CTRL_H
 #include "stm8s.h"
-#include "filter.h"
-#include "key.h"
-#include "uart.h"
 
-
-
-//---------------按键定义----------------
-
-#define KEY_SET         PRESS_KEY1
-#define KEY_FLUSH       PRESS_KEY2
-#define KEY_MODE        PRESS_KEY3
-#define KEY_TEMP        PRESS_KEY4
-#define KEY_VEG         PRESS_KEY5
-#define KEY_OUT         PRESS_KEY6
-#define KEY_HEAT        PRESS_KEY7
-#define KEY_QUANT       PRESS_KEY8
-#define KEY_POWER       PRESS_KEY9
-
-
-//---------------LED亮灭闪---------------
-#define OFF             0
-#define ON              1
-#define Flash          2
-
-//---------------保存数据-----------------
-//温度
-//定量
-//耗材1
-//耗材2
-//耗材3
-//耗材4
-//
-
-//----------------------------------------
-#define FLUSH_SET       3600
-
-typedef enum _FlushTypeDef
-{
-  FNone,
-  FFull,
-  FNoWater,
-  FStart,
-  FForce,
-  FRun,
-  FNoFull,  
-}FlushTypeDef;
-
-typedef enum _StauseTypeDef
-{
-  SNone,
-  SMakeWater,
-  SNoWater,
-  SFull,
-  SRepair,
-  SFlush,
-}StauseTypeDef;
-
-//-------------------IO口定义--------------------------------------
-//#define BEEF    PD4     //   tim2ch1
-//#define TXD     PD5     //UART1
-//#define RXD     PD6
-//#define VALUE2  PA1     //高电平有效
-//#define VALUE1  PA2
-//#deifne LED_C   PA3     
-//#define NTC     PD3     //ADC_ETR
-//#define CURRENT PD2     //输入
-//#define SWIM    PD1
-//#define PUMP    PC7     
-//#define PWM2    PC6
-//#define PWM1    PC5     //？
-//#define HEAT    PC4     
-//#define FLOW    PC3     //计数
-//#define PLACE   PB4     //输入
-//#define LEVEL   PB5
-//GPIO_WriteHigh(GPIOA, GPIO_PIN_1);
-//GPIO_WriteLow(GPIOA, GPIO_PIN_0);
+/*
+PD3 ----->  SIG         输入中断、输出
+PD2 ----->  CHECK       
+PC6 ----->  T1          输出
+PC5 ----->  T2          输出
+PA3 ----->  REV         输入中断
+PD4 ----->  T_PWR       输出
+*/
 
 //--------------------功能对应IO口------------------------------------
-#define Out_Water_ON    GPIO_WriteHigh(GPIOA, GPIO_PIN_1)
-#define Out_Water_OFF   GPIO_WriteLow (GPIOA, GPIO_PIN_1)
+#define PWR_ON          GPIO_WriteHigh(GPIOD, GPIO_PIN_4)
+#define PWR_OFF         GPIO_WriteLow (GPIOD, GPIO_PIN_4)
 
-#define Out_V_Water_ON  GPIO_WriteHigh(GPIOA, GPIO_PIN_2)
-#define Out_V_Water_OFF GPIO_WriteLow (GPIOA, GPIO_PIN_2)
+#define T1_ON           GPIO_WriteHigh(GPIOC, GPIO_PIN_5)
+#define T1_OFF          GPIO_WriteLow (GPIOC, GPIO_PIN_5)
 
-#define LED_ON          GPIO_WriteHigh(GPIOA, GPIO_PIN_3)
-#define LED_OFF         GPIO_WriteLow (GPIOA, GPIO_PIN_3)
+#define T2_ON          GPIO_WriteHigh(GPIOC, GPIO_PIN_6)
+#define T2_OFF         GPIO_WriteLow (GPIOC, GPIO_PIN_6)
 
-#define PUMP_ON         GPIO_WriteHigh(GPIOC, GPIO_PIN_7)
-#define PUMP_OFF        GPIO_WriteLow (GPIOC, GPIO_PIN_7)
-
-#define PWM1_ON         GPIO_WriteHigh(GPIOC, GPIO_PIN_5)
-#define PWM1_OFF        GPIO_WriteLow (GPIOC, GPIO_PIN_5)
-
-#define HEAT_ON         GPIO_WriteHigh(GPIOC, GPIO_PIN_4)
-#define HEAT_OFF        GPIO_WriteLow (GPIOC, GPIO_PIN_4)
-
-#define PWM2_ON         GPIO_WriteHigh(GPIOC, GPIO_PIN_6)
-#define PWM2_OFF        GPIO_WriteLow (GPIOC, GPIO_PIN_6)
+#define SIG_ON         GPIO_WriteHigh(GPIOD, GPIO_PIN_3)
+#define SIG_OFF        GPIO_WriteLow (GPIOD, GPIO_PIN_3)
 
 //------------------------------------------------------------------
-void Key_Fun();
 void GPIOInit();
-void Ctrl(void);
-void SetBee(u8 cnt,u16 OnTime,u16 OffTime,u8 typ);
-void Send_Data_Buf();
-
+void Delay_125us();
+void Port(uint8_t mode);
 #endif  
 
 

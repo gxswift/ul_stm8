@@ -23,7 +23,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s_it.h"
-#include "timer.h"
 #include "ctrl.h"
 
 /** @addtogroup Template_Project
@@ -134,16 +133,19 @@ INTERRUPT_HANDLER(EXTI_PORTB_IRQHandler, 4)
 */
 
 
-
-extern u16 Out_Water_Cnt;
-
+extern uint8_t Flag;
 INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 5)
 {
   /* In order to detect unexpected events during development,
   it is recommended to set a breakpoint on the following instruction.
   */
-  if (Out_Water_Cnt)
-    Out_Water_Cnt--;
+  //接收到信号
+//  if(Flag)
+//  {
+    SIG_OFF;//输出置低
+    Flag = 0;//输出标志清0
+    GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//D3端口改为输入中断
+//  }
 }
 
 /**
@@ -156,6 +158,18 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
   /* In order to detect unexpected events during development,
   it is recommended to set a breakpoint on the following instruction.
   */
+  uint8_t i;
+  for (i = 0;i < 16;i++)//互补翻转 16次   8个周期超声波
+  {
+    Port(i&1);
+    Delay_125us();
+  }
+  Port(2);//两端口置低
+  Delay_125us();//延时
+  
+  GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);//SIG端口改为输出
+  SIG_ON;//输出信号
+  Flag = 1;//输出标志
 }
 
 /**
@@ -496,10 +510,6 @@ INTERRUPT_HANDLER(TIM6_UPD_OVF_TRG_IRQHandler, 23)
 //extern uint16_t delayTime;
 //extern uint16_t doubleclickTime;
 
-extern volatile u8 Run_Cnt;
-extern BEESTU Bee;
-extern u8 Duty;
-u8 PWM_Cnt;
 INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 23)
 {
   /* In order to detect unexpected events during development,
@@ -510,46 +520,6 @@ INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 23)
   //   TIM4_ClearITPendingBit(TIM2_IT_UPDATE);
   //   UpdateTask();
   //updisplay((u8 *)&sendDisp.dat[1]);
-  
-  if (Run_Cnt<20)
-    Run_Cnt ++;
-  if (Rec_Time< 5000)
-    Rec_Time++;
-  
-//---------------------------
-    PWM_Cnt++;
-  if (PWM_Cnt==100)
-    PWM_Cnt = 0;  
-  if ( PWM_Cnt < Duty)
-    PWM2_ON;
-  else PWM2_OFF;
-//---------------------------  
-  
-  
-
-  if(Bee.BeeCnt)
-  {
-    if(Bee.flag==0)
-    {
-      BeeON(2400);
-      if(Bee.TimeCnt++>=Bee.BeeOnTime)
-      {
-        Bee.flag=1;
-        Bee.TimeCnt=0;
-        BeeOFF();
-      }
-    }
-    else if(Bee.flag==1)
-    {
-      BeeOFF();
-      if(Bee.TimeCnt++>=Bee.BeeOffTime)
-      {
-        Bee.flag=0;
-        Bee.BeeCnt--;    
-        Bee.TimeCnt=0;
-      }
-    }   
-  } 
 }
 #endif /*STM8S903*/
 

@@ -1,7 +1,4 @@
 #include "ctrl.h"
-#include "timer.h"
-#include "delay.h"
-#include "Adc.h"
 /*
 PD3 ----->  SIG
 PD2 ----->  CHECK
@@ -12,153 +9,65 @@ PD4 ----->  T_PWR
 */
 void Delay_us()
 {
-    asm("nop"); //一个asm("nop")函数经过示波器测试代表100ns   
+    asm("nop"); 
     asm("nop");   
     asm("nop");   
     asm("nop"); 
 }
-void Delay_125us()
-{
-  asm("nop"); asm("nop"); asm("nop"); asm("nop");
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  
-  asm("nop"); asm("nop"); asm("nop"); asm("nop");
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  
-  asm("nop"); asm("nop"); asm("nop"); asm("nop");
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop");
-  
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop");
-  
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop");
-  
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
-  asm("nop"); asm("nop"); asm("nop"); asm("nop"); 
 
-}//176   
-void Delay_ms(unsigned int time)   
+void Delay_ms(unsigned int time)  //ms计时 
 {   
    unsigned int i;   
     while(time--)     
     for(i=900;i>0;i--)   
     Delay_us();    
 } 
-#define LED_ON          GPIO_WriteHigh(GPIOA, GPIO_PIN_3)
-#define LED_OFF         GPIO_WriteLow (GPIOA, GPIO_PIN_3)
+
+
+uint8_t Flag;   //输出标志 1：有输出   0：无输出
+uint16_t t;     //主循环粗略计时
+
 void main()
 {
+    uint16_t t;
     CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
-    GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);
+    GPIOInit();
+
+    PWR_ON;    
     while(1)
     {
-      LED_ON;
-      Delay_125us();
-      LED_OFF;
-      Delay_125us();
-      
-    }
-}
-void InitDevice()
-{
-  CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
-  TIM1Init();
-  TIM2Init();
-  TIM4Init();
-  Uart1_Init();
-  Filter_Init();
-  bsp_InitAdc();
-  GPIOInit();
-//  IWDGInit();
-  //  delay_init(16);
-}
-
-volatile u8 Run_Cnt;
-/*void main(void)
-{
-  u8 count;
-  u32 t;
-  //  u16 i;
-  InitDevice();
-  //   for (i =0;i<1500;i++)
-  //  {
-  //    BeeON(3500-i);
-  //    t=100000/3000;
-  //    while (t--);
-  //  }
-  //   for (i =0;i<1500;i++)
-  //  {
-  //    BeeON(3500-i);
-  //    t=100000/3000;
-  //    while (t--);
-  //  }
-  
-  
-  BeeON(2430);
-  //  delay_ms(500);
-  t=100000;
-  while (t--);
-  //  
-  //SetBee(1,100,100,0);
-  
-  BeeOFF();
-  rim();
-  while(1)
-  {
-//    IWDG_ReloadCounter();
-
-    if (Run_Cnt ==20)
-    {
-      Run_Cnt = 0 ;
-      Get_Data();
-      Key_Fun();
-      bsp_AdcPro();
-      count++;
-      if(count==5)
+      Delay_ms(1);
+      if (Flag)//有输出计时
       {
-        count = 0;
-        Ctrl();
+        t++;
+        if (t>300)//设置上限200ms 距离约 150*340 = 5100mm = 5.1m
+        {
+          t = 0;
+          Flag = 0;
+          SIG_OFF;
+          GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//改变输出方向
+        }
+      }
+      else
+      {
+       t = 0;    
       }
     }
-  } 
 }
-*/
+
+
+//void InitDevice()
+//{
+//  CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
+//  TIM1Init();
+//  TIM2Init();
+//  TIM4Init();
+//  bsp_InitAdc();
+//  GPIOInit();
+////  IWDGInit();
+//  //  delay_init(16);
+//}
+
 
 
 

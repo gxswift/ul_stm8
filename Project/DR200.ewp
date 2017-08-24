@@ -507,6 +507,7 @@
       <data>
         <extensions></extensions>
         <cmdline></cmdline>
+        <hasPrio>0</hasPrio>
       </data>
     </settings>
     <settings>
@@ -1299,6 +1300,7 @@
       <data>
         <extensions></extensions>
         <cmdline></cmdline>
+        <hasPrio>0</hasPrio>
       </data>
     </settings>
     <settings>
@@ -1644,31 +1646,13 @@
   <group>
     <name>USER</name>
     <file>
-      <name>$PROJ_DIR$\..\USER\Adc.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\USER\ctrl.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\USER\delay.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\USER\Filter.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\USER\key.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\USER\main.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\USER\stm8s_it.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\USER\timer.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\USER\uart.c</name>
     </file>
   </group>
 </project>
