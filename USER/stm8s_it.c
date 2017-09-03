@@ -107,11 +107,21 @@ INTERRUPT_HANDLER(CLK_IRQHandler, 2)
 * @param  None
 * @retval None
 */
+extern uint8_t Flag;
 INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
 {
   /* In order to detect unexpected events during development,
   it is recommended to set a breakpoint on the following instruction.
   */
+      //接收到信号
+  if(Flag)
+  {
+    SIG_OFF;//输出置低
+    Flag = 0;//输出标志清0
+    GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);//A3关闭中断
+    GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//D3端口改为输入中断
+    EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_ONLY);
+  }
 }
 
 /**
@@ -119,11 +129,14 @@ INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
 * @param  None
 * @retval None
 */
+
+
 INTERRUPT_HANDLER(EXTI_PORTB_IRQHandler, 4)
 {
   /* In order to detect unexpected events during development,
   it is recommended to set a breakpoint on the following instruction.
   */
+
 }
 
 /**
@@ -133,19 +146,12 @@ INTERRUPT_HANDLER(EXTI_PORTB_IRQHandler, 4)
 */
 
 
-extern uint8_t Flag;
 INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 5)
 {
   /* In order to detect unexpected events during development,
   it is recommended to set a breakpoint on the following instruction.
   */
-  //接收到信号
-//  if(Flag)
-//  {
-    SIG_OFF;//输出置低
-    Flag = 0;//输出标志清0
-    GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//D3端口改为输入中断
-//  }
+
 }
 
 /**
@@ -153,6 +159,7 @@ INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 5)
 * @param  None
 * @retval None
 */
+extern void Delay_ms(unsigned int time);  //ms计时 
 INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
 {
   /* In order to detect unexpected events during development,
@@ -165,10 +172,14 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
     Delay_125us();
   }
   Port(2);//两端口置低
+  
+  
   Delay_125us();//延时
   
   GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);//SIG端口改为输出
   SIG_ON;//输出信号
+  Delay_ms(1);
+  GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);
   Flag = 1;//输出标志
 }
 

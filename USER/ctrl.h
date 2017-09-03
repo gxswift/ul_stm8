@@ -28,6 +28,9 @@ PD4 ----->  T_PWR       Êä³ö
 void GPIOInit();
 void Delay_125us();
 void Port(uint8_t mode);
+
+void Delay_us();
+void Delay_ms(unsigned int time);  //ms¼ÆÊ± 
 #endif  
 
 
