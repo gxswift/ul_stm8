@@ -108,6 +108,7 @@ INTERRUPT_HANDLER(CLK_IRQHandler, 2)
 * @retval None
 */
 extern uint8_t Flag;
+static uint8_t Fall_Cnt = 0;
 INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
 {
   /* In order to detect unexpected events during development,
@@ -116,11 +117,17 @@ INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
       //接收到信号
   if(Flag)
   {
-    SIG_OFF;//输出置低
-    Flag = 0;//输出标志清0
-    GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);//A3关闭中断
-    GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//D3端口改为输入中断
-    EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_ONLY);
+    Fall_Cnt++;
+    if (Fall_Cnt>4)
+    {
+      Fall_Cnt = 0;
+      SIG_OFF;//输出置低
+      Delay_ms(2);
+      Flag = 0;//输出标志清0
+      GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);//A3关闭中断
+      GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//D3端口改为输入中断
+      EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_ONLY);
+    }
   }
 }
 

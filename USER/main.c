@@ -26,11 +26,12 @@ void main()
       if (Flag)//有输出计时
       {
         t++;
-        if (t>300)//设置上限300ms 距离约 150*340 = 5100mm = 5.1m
+        if (t>30)//设置上限30ms 距离约 15*340 = 5100mm = 5.1m
         {
           t = 0;
           Flag = 0;
           SIG_OFF;
+          Delay_ms(2);
           GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//A3开启中断
           
           GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//改变输出方向
