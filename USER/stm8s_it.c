@@ -185,7 +185,7 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
   
   GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);//SIG端口改为输出
   SIG_ON;//输出信号
-  Delay_ms(1);
+  Delay_100us(2);
   GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);
   Flag = 1;//输出标志
 }

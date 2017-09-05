@@ -101,6 +101,14 @@ void Delay_ms(unsigned int time)  //ms计时
     Delay_us();    
 } 
 
+void Delay_100us(unsigned int time)  //0.1ms计时 
+{   
+   unsigned int i;   
+    while(time--)     
+    for(i=90;i>0;i--)   
+    Delay_us();    
+} 
+
 //mode 0,1:互补翻转   2：两端口置低
 void Port(uint8_t mode)
 {

@@ -31,6 +31,7 @@ void Port(uint8_t mode);
 
 void Delay_us();
 void Delay_ms(unsigned int time);  //ms计时 
+void Delay_100us(unsigned int time);  //0.1ms计时 
 #endif  
 
 
