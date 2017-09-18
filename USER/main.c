@@ -12,7 +12,7 @@ PD4 ----->  T_PWR
 
 uint8_t Flag;   //输出标志 1：有输出   0：无输出
 uint16_t t;     //主循环粗略计时
-
+extern uint8_t Fall_Cnt;
 void main()
 {
 //   uint16_t t;
@@ -30,6 +30,7 @@ void main()
         {
           t = 0;
           Flag = 0;
+          Fall_Cnt = 0;
           SIG_OFF;
           Delay_ms(2);
           GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//A3开启中断

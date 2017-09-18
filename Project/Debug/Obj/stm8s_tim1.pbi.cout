@@ -1,18 +1,18 @@
-"D:\practise\ul_stm8\FWLIB\src\stm8s_tim1.c"
+"C:\Users\gx\Desktop\新建文件夹\ul_stm8\FWLIB\src\stm8s_tim1.c"
 -std=c99
 -ferror-limit=100
 -I
-D:\practise\ul_stm8\Project\..\FWLIB\inc
+C:\Users\gx\Desktop\新建文件夹\ul_stm8\Project\..\FWLIB\inc
 -I
-D:\practise\ul_stm8\Project\..\USER
+C:\Users\gx\Desktop\新建文件夹\ul_stm8\Project\..\USER
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\inc\c
 -I
-D:\practise\ul_stm8\FWLIB\inc
+C:\Users\gx\Desktop\新建文件夹\ul_stm8\FWLIB\inc
 -I
-D:\practise\ul_stm8\USER
+C:\Users\gx\Desktop\新建文件夹\ul_stm8\USER
 -DSTM8S003=1
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff

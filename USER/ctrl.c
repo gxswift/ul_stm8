@@ -101,11 +101,12 @@ void Delay_ms(unsigned int time)  //ms计时
     Delay_us();    
 } 
 
-void Delay_100us(unsigned int time)  //0.1ms计时 
+void Delay_100us(unsigned int time)  //发出后的延时
 {   
    unsigned int i;   
     while(time--)     
-    for(i=90;i>0;i--)   
+  //  for(i=90;i>0;i--)  
+      for(i=90;i>0;i--)  
     Delay_us();    
 } 
 
