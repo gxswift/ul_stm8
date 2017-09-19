@@ -118,11 +118,11 @@ INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
   if(Flag)
   {
     Fall_Cnt++;
-    if (Fall_Cnt>=2)
+    if (Fall_Cnt>2)
     {
       Fall_Cnt = 0;
       SIG_OFF;//输出置低
-      Delay_ms(2);
+      Delay_ms(1);
       Flag = 0;//输出标志清0
       GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);//A3关闭中断
       GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//D3端口改为输入中断
