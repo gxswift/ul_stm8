@@ -19,7 +19,7 @@ void main()
     CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
     GPIOInit();
     enableInterrupts();
-    PWR_OFF;    
+    PWR_OFF;   //开启232 
     while(1)
     {
       Delay_ms(1);
@@ -31,12 +31,12 @@ void main()
           t = 0;
           Flag = 0;
           Fall_Cnt = 0;
-          SIG_OFF;
+          SIG_OFF;      //输出信号关
           Delay_ms(1);
           GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//A3开启中断
           
           GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//改变输出方向
-          EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_ONLY);
+          EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_ONLY);//开启上升沿中断  接收触发
         }
       }
       else
