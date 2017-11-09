@@ -1,18 +1,18 @@
-"D:\³¬Éù²¨Ä£¿é\ul_stm8\USER\stm8s_it.c"
+"E:\Project\Practise\ul_stm8\USER\stm8s_it.c"
 -std=c99
 -ferror-limit=100
 -I
-D:\³¬Éù²¨Ä£¿é\ul_stm8\Project\..\FWLIB\inc
+E:\Project\Practise\ul_stm8\Project\..\FWLIB\inc
 -I
-D:\³¬Éù²¨Ä£¿é\ul_stm8\Project\..\USER
+E:\Project\Practise\ul_stm8\Project\..\USER
 -I
-C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\inc
+C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3_2\stm8\inc
 -I
-C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\inc\c
+C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3_2\stm8\inc\c
 -I
-D:\³¬Éù²¨Ä£¿é\ul_stm8\FWLIB\inc
+E:\Project\Practise\ul_stm8\FWLIB\inc
 -I
-D:\³¬Éù²¨Ä£¿é\ul_stm8\USER
+E:\Project\Practise\ul_stm8\USER
 -DSTM8S003=1
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
@@ -257,8 +257,8 @@ D:\³¬Éù²¨Ä£¿é\ul_stm8\USER
 -D__EDG_SYSV=0
 -D__EDG_ANSIC=1
 -D__EDG_CPP11_IL_EXTENSIONS_SUPPORTED=1
--D_DLIB_CONFIG_FILE_HEADER_NAME="C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\stm8\LIB\dlstm8smn.h"
--D_DLIB_CONFIG_FILE_STRING="C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 7.3\\stm8\\LIB\\dlstm8smn.h"
+-D_DLIB_CONFIG_FILE_HEADER_NAME="C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3_2\stm8\LIB\dlstm8smn.h"
+-D_DLIB_CONFIG_FILE_STRING="C:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 7.3_2\\stm8\\LIB\\dlstm8smn.h"
 -D__VERSION__="IAR C/C++ Compiler V2.20.3.189 for STM8"
 -D__CODE_MEMORY_LIST1__()=__CODE_MEM_HELPER1__(__code, 0 )
 -D__CODE_MEMORY_LIST2__(_P1)=__CODE_MEM_HELPER2__(__code, 0 ,  _P1 )

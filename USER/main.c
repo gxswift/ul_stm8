@@ -31,8 +31,9 @@ void main()
           t = 0;
           Flag = 0;
           Fall_Cnt = 0;
-          SIG_OFF;      //输出信号关
+          SIG_OFF;      //输出信号拉低
           Delay_ms(1);
+          CHECK_OFF;//比较检测关闭
           GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//A3开启中断
           
           GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//改变输出方向

@@ -24,6 +24,9 @@ PD4 ----->  T_PWR       Êä³ö
 #define SIG_ON         GPIO_WriteHigh(GPIOD, GPIO_PIN_3)
 #define SIG_OFF        GPIO_WriteLow (GPIOD, GPIO_PIN_3)
 
+#define CHECK_ON         GPIO_WriteHigh(GPIOD, GPIO_PIN_2)
+#define CHECK_OFF        GPIO_WriteLow (GPIOD, GPIO_PIN_2)
+
 //------------------------------------------------------------------
 void GPIOInit();
 void Delay_125us();

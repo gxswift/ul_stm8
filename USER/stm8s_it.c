@@ -124,6 +124,7 @@ INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
       SIG_OFF;//输出置低
       Delay_ms(1);
       Flag = 0;//输出标志清0
+      CHECK_OFF;//关闭检测比较
       GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);//A3关闭中断 接收口
       GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//D3端口改为输入中断
       EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_ONLY);//上升沿中断
@@ -173,7 +174,7 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
   it is recommended to set a breakpoint on the following instruction.
   */
   uint8_t i;
-  PWR_OFF;
+  PWR_OFF;//开启232
   Delay_125us();
   for (i = 0;i < 16;i++)//互补翻转 16次   8个周期超声波
   {
@@ -183,7 +184,8 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
   Port(2);//两端口置低
   
   Fall_Cnt = 0;
-  PWR_ON;
+  PWR_ON;//关闭232
+  CHECK_ON;//检测比较
   Delay_125us();//延时
   GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);//SIG端口改为输出
   SIG_ON;//输出信号
