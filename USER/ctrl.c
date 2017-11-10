@@ -15,7 +15,7 @@ void GPIOInit()
   GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_FAST);//输出控制
   GPIO_Init(GPIOC, GPIO_PIN_6, GPIO_MODE_OUT_PP_LOW_FAST);//输出控制
   
-  GPIO_Init(GPIOD, GPIO_PIN_2, GPIO_MODE_OUT_PP_LOW_FAST);//比较检测
+ // GPIO_Init(GPIOD, GPIO_PIN_2, GPIO_MODE_OUT_PP_LOW_FAST);//比较检测
   
   GPIO_Init(GPIOD, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_FAST);//232输出控制
   
@@ -130,4 +130,24 @@ void Port(uint8_t mode)
     T1_OFF;
     T2_ON;
   }  
+}
+
+void TIM2Init()//ARF_1    //PD2  PWM
+{
+  TIM2_DeInit();
+  TIM2_TimeBaseInit(TIM2_PRESCALER_16, 0x0000);
+  TIM2_OC3Init(TIM2_OCMODE_PWM1, TIM2_OUTPUTSTATE_ENABLE, 0x0000, TIM2_OCPOLARITY_HIGH);
+  TIM2_OC3PreloadConfig(ENABLE);
+  TIM2_Cmd(ENABLE);
+}
+
+
+void PWM_Start(u16 Frequency ,u16 Duty)
+{
+  u16 cnt= 1000000/Frequency ;
+  TIM2->ARRH = cnt>>8;
+  TIM2->ARRL = cnt;
+
+  TIM2->CCR3H = Duty>>8;
+  TIM2->CCR3L = Duty;
 }
