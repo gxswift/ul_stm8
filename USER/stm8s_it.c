@@ -117,16 +117,19 @@ INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
       //接收到信号
   if(Flag)
   {
-    Fall_Cnt++;
-    if (Fall_Cnt>2)
+    Fall_Cnt++;//接收计数
+    if (Fall_Cnt>2)//检测接收次数
     {
       Fall_Cnt = 0;
       SIG_OFF;//输出置低
-      Delay_ms(1);
+      Delay_125us();
+      //Delay_ms(1);
       Flag = 0;//输出标志清0
       //CHECK_OFF;//关闭检测比较
+      
       GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);//A3关闭中断 接收口
-      GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//D3端口改为输入中断
+      
+      GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//D3端口改为输入中断 接收下次触发
       EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_ONLY);//上升沿中断
     }
   }
@@ -181,15 +184,15 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
     Port(i&1);
     Delay_125us();
   }
+  PWR_ON;//关闭232
   Port(2);//两端口置低
   
   Fall_Cnt = 0;
-  PWR_ON;//关闭232
   //CHECK_ON;//检测比较
   Delay_125us();//延时
   GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);//SIG端口改为输出
   SIG_ON;//输出信号
-  Delay_100us(1);
+//  Delay_100us(1);
   GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//接收口中断
   Flag = 1;//输出标志
 }

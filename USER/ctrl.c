@@ -15,7 +15,7 @@ void GPIOInit()
   GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_FAST);//输出控制
   GPIO_Init(GPIOC, GPIO_PIN_6, GPIO_MODE_OUT_PP_LOW_FAST);//输出控制
   
- // GPIO_Init(GPIOD, GPIO_PIN_2, GPIO_MODE_OUT_PP_LOW_FAST);//比较检测
+  GPIO_Init(GPIOD, GPIO_PIN_2, GPIO_MODE_OUT_PP_LOW_FAST);//比较检测
   
   GPIO_Init(GPIOD, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_FAST);//232输出控制
   
@@ -142,7 +142,7 @@ void TIM2Init()//ARF_1    //PD2  PWM
 }
 
 
-void PWM_Start(u16 Frequency ,u16 Duty)
+void PWM_Start(u16 Frequency ,u16 Duty)//频率   占空比设置
 {
   u16 cnt= 1000000/Frequency ;
   TIM2->ARRH = cnt>>8;
