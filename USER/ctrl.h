@@ -38,6 +38,8 @@ void Delay_100us(unsigned int time);  //0.1ms¼ÆÊ±
 
 void TIM2Init();
 void PWM_Start(u16 Frequency ,u16 Duty);
+
+void TIM4Init();
 #endif  
 
 

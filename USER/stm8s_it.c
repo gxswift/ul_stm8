@@ -109,13 +109,16 @@ INTERRUPT_HANDLER(CLK_IRQHandler, 2)
 */
 extern uint8_t Flag;
 uint8_t Fall_Cnt = 0;
+uint8_t Time_Cnt = 0;
+uint8_t Temp = 0;
 INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
 {
   /* In order to detect unexpected events during development,
   it is recommended to set a breakpoint on the following instruction.
   */
-      //接收到信号
-  if(Flag)
+      //接收到信号       计数方法
+  //-------------------------------------------------------------------------------
+/*  if(Flag)
   {
     Fall_Cnt++;//接收计数
     if (Fall_Cnt>2)//检测接收次数
@@ -132,7 +135,31 @@ INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
       GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//D3端口改为输入中断 接收下次触发
       EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_ONLY);//上升沿中断
     }
+  }*/
+  //-------------------------------------------------------------------------------
+        //接收到信号       计时方法
+  //-------------------------------------------------------------------------------
+   if(Flag)
+  {
+ //   if(Time_Cnt > 22 && Time_Cnt < 28)
+    Temp = TIM4->CNTR;
+    if(Temp> 23 && Temp < 27)
+    {
+      Fall_Cnt = 0;
+      SIG_OFF;//输出置低
+      Delay_125us();
+      Flag = 0;//输出标志清0
+      
+      GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_OUT_PP_LOW_FAST);//A3关闭中断 接收口
+      
+      GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//D3端口改为输入中断 接收下次触发
+      EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_ONLY);//上升沿中断
+   //   TIM4->IER = 0;
+    }
+    Time_Cnt = 0;
+    TIM4->CNTR = 0;
   }
+  
 }
 
 /**
@@ -195,6 +222,9 @@ INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
 //  Delay_100us(1);
   GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//接收口中断
   Flag = 1;//输出标志
+  Time_Cnt = 0;
+  TIM4->CNTR = 0;
+//  TIM4->IER = 1;
 }
 
 /**
@@ -383,12 +413,12 @@ INTERRUPT_HANDLER(UART1_TX_IRQHandler, 17)
 * @retval None
 */
 
-u8 UART_BUF[16];
-u8 UART_COUNT;
-u16 Rec_Time;
-u8 Rece_Flag;
-static u8 data1;
-uint8_t state = 0;
+//u8 UART_BUF[16];
+//u8 UART_COUNT;
+//u16 Rec_Time;
+//u8 Rece_Flag;
+//static u8 data1;
+//uint8_t state = 0;
 INTERRUPT_HANDLER(UART1_RX_IRQHandler, 18)//改为计时？？/标志
 {
   //u8 data;
@@ -396,26 +426,26 @@ INTERRUPT_HANDLER(UART1_RX_IRQHandler, 18)//改为计时？？/标志
   //  {
   //    UART1_ClearITPendingBit(UART1_IT_RXNE);
   
-  if(UART1_GetFlagStatus(UART1_FLAG_RXNE) != RESET)
-  {
-    if(UART1->SR & UART1_SR_OR)
-    {  UART1->SR &=(~UART1_SR_OR);
-    //state = UART1->SR;
-    
-    }
-    data1=UART1_ReceiveData8();
-    if (UART_COUNT<12)
-    {
-      UART_BUF[UART_COUNT]=data1;//把数据存到数组
-      UART_COUNT++;
-      Rec_Time=0;
-      Rece_Flag = 1;
-    }
-    else
-    {
-      UART_COUNT = 0;
-    }
-  }
+//  if(UART1_GetFlagStatus(UART1_FLAG_RXNE) != RESET)
+//  {
+//    if(UART1->SR & UART1_SR_OR)
+//    {  UART1->SR &=(~UART1_SR_OR);
+//    //state = UART1->SR;
+//    
+//    }
+//    data1=UART1_ReceiveData8();
+//    if (UART_COUNT<12)
+//    {
+//      UART_BUF[UART_COUNT]=data1;//把数据存到数组
+//      UART_COUNT++;
+//      Rec_Time=0;
+//      Rece_Flag = 1;
+//    }
+//    else
+//    {
+//      UART_COUNT = 0;
+//    }
+//  }
   
 }
 
@@ -542,6 +572,9 @@ INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 23)
   */
   
   TIM4_ClearFlag(TIM4_FLAG_UPDATE);
+  TIM4->CNTR = 100;
+  if(Time_Cnt<100)
+    Time_Cnt++;
   //   TIM4_ClearITPendingBit(TIM2_IT_UPDATE);
   //   UpdateTask();
   //updisplay((u8 *)&sendDisp.dat[1]);

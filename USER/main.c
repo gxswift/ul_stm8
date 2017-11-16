@@ -23,9 +23,12 @@ void main()
 {
     CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1);
     GPIOInit();
+    TIM4Init();    
     enableInterrupts();
 
-    CHECK_ON;
+  //  CHECK_ON;
+    
+
     //----------------------------------------------
 //   TIM2Init();    
 //    PWM_Start(1060 ,COMP_V);//频率，计数
@@ -48,6 +51,7 @@ void main()
          // GPIO_Init(GPIOA, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//A3开启中断
           GPIO_Init(GPIOD, GPIO_PIN_3, GPIO_MODE_IN_FL_IT);//改变输出方向
           EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_RISE_ONLY);//开启上升沿中断  接收触发
+       //   TIM4->IER = 0;
         }
       }
       else

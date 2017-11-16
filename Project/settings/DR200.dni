@@ -38,7 +38,7 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=-615776174
+Checksum=-886558884
 [CallStack]
 ShowArgs=0
 [Disassembly]
@@ -66,12 +66,13 @@ LogFile=_ ""
 Bp0=_ "STD_CODE" "0x008853" 0 0 0 0 "" 0 ""
 Count=1
 [Aliases]
-A0=_ "D:\practise\ul_stm8\FWLIB\src\stm8s_gpio.c" ""
-A1=_ "E:\Project\Practise\ul_stm8\USER\ctrl.c" ""
-A2=_ "F:\项目文件\DR200\DR200-A1\DR200-CTRL\FWLIB\src\stm8s_gpio.c" ""
-A3=_ "F:\项目文件\DR200\DR200-A1\DR200-CTRL\FWLIB\src\stm8s_tim4.c" ""
-A4=_ "F:\项目文件\DR200\DR200-CTRL\USER\Filter.c" ""
-Count=5
+A0=_ "D:\practise\ul_stm8\FWLIB\src\stm8s_exti.c" ""
+A1=_ "D:\practise\ul_stm8\FWLIB\src\stm8s_gpio.c" ""
+A2=_ "E:\Project\Practise\ul_stm8\USER\ctrl.c" ""
+A3=_ "F:\项目文件\DR200\DR200-A1\DR200-CTRL\FWLIB\src\stm8s_gpio.c" ""
+A4=_ "F:\项目文件\DR200\DR200-A1\DR200-CTRL\FWLIB\src\stm8s_tim4.c" ""
+A5=_ "F:\项目文件\DR200\DR200-CTRL\USER\Filter.c" ""
+Count=6
 SuppressDialog=1
 [DebuggerSettings]
 DisableInterruptsWhenStepping=0

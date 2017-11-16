@@ -15,7 +15,7 @@ void GPIOInit()
   GPIO_Init(GPIOC, GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_FAST);//输出控制
   GPIO_Init(GPIOC, GPIO_PIN_6, GPIO_MODE_OUT_PP_LOW_FAST);//输出控制
   
-  GPIO_Init(GPIOD, GPIO_PIN_2, GPIO_MODE_OUT_PP_LOW_FAST);//比较检测
+//  GPIO_Init(GPIOD, GPIO_PIN_2, GPIO_MODE_OUT_PP_LOW_FAST);//比较检测
   
   GPIO_Init(GPIOD, GPIO_PIN_4, GPIO_MODE_OUT_PP_LOW_FAST);//232输出控制
   
@@ -151,3 +151,56 @@ void PWM_Start(u16 Frequency ,u16 Duty)//频率   占空比设置
   TIM2->CCR3H = Duty>>8;
   TIM2->CCR3L = Duty;
 }
+
+//  TIM4_PRESCALER_1  = ((uint8_t)0x00),
+//  TIM4_PRESCALER_2    = ((uint8_t)0x01),
+//  TIM4_PRESCALER_4    = ((uint8_t)0x02),
+//  TIM4_PRESCALER_8     = ((uint8_t)0x03),
+//  TIM4_PRESCALER_16   = ((uint8_t)0x04),
+//  TIM4_PRESCALER_32     = ((uint8_t)0x05),
+//  TIM4_PRESCALER_64    = ((uint8_t)0x06),
+//  TIM4_PRESCALER_128   = ((uint8_t)0x07)
+void TIM4Init()
+{
+//  TIM4_TimeBaseInit(TIM4_PRESCALER_64, 250);
+//  TIM4_SetCounter(0x00);
+//  TIM4_ITConfig(TIM4_IT_UPDATE, ENABLE);
+//  TIM4_Cmd(ENABLE);
+  //TIM4->CR1 |= (1 << 0);
+  TIM4->ARR = 250;
+  TIM4->CNTR = 0;
+  TIM4->PSCR = 4;//TIM4_PRESCALER_16
+  TIM4->IER |= 0X01;
+  TIM4->CR1 |= 0X01;
+}
+/*/us中断
+void TIM4Init()
+{
+//  TIM4_TimeBaseInit(TIM4_PRESCALER_64, 250);
+//  TIM4_SetCounter(0x00);
+//  TIM4_ITConfig(TIM4_IT_UPDATE, ENABLE);
+//  TIM4_Cmd(ENABLE);
+  //TIM4->CR1 |= (1 << 0);
+  TIM4->ARR = 8;
+  TIM4->CNTR = 0;
+  TIM4->PSCR = 1;//TIM4_PRESCALER_2
+  TIM4->IER |= 0X01;
+  TIM4->CR1 |= 0X01;
+}
+*/
+//TIM4->IER = 0;
+/*
+void TIM4Init()
+{
+//  TIM4_TimeBaseInit(TIM4_PRESCALER_64, 250);
+//  TIM4_SetCounter(0x00);
+//  TIM4_ITConfig(TIM4_IT_UPDATE, ENABLE);
+//  TIM4_Cmd(ENABLE);
+  //TIM4->CR1 |= (1 << 0);
+  TIM4->ARR = 250;
+  TIM4->CNTR = 0;
+  TIM4->PSCR = 6;
+  TIM4->IER |= 0X01;
+  TIM4->CR1 |= 0X01;
+}
+*/
